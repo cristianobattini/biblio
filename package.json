@@ -1,0 +1,9 @@
+{
+  "name": "biblio",
+  "private": true,
+  "workspaces": ["apps/*", "packages/*"],
+  "scripts": {
+    "web": "yarn workspace @biblio/web dev",
+    "mobile": "yarn workspace @biblio/mobile start"
+  }
+}

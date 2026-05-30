@@ -1,0 +1,34 @@
+{
+  "expo": {
+    "name": "biblio",
+    "slug": "biblio",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "scheme": "biblio",
+    "userInterfaceStyle": "dark",
+    "splash": {
+      "backgroundColor": "#0a0a0a"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.biblio.app",
+      "infoPlist": {
+        "NSCameraUsageDescription": "Usata per scansionare codici ISBN"
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#0a0a0a"
+      },
+      "package": "com.biblio.app",
+      "permissions": ["CAMERA"]
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "expo-camera",
+        { "cameraPermission": "Usata per scansionare codici ISBN" }
+      ]
+    ]
+  }
+}
