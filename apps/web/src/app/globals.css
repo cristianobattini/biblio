@@ -62,4 +62,16 @@
     box-shadow: 0 16px 48px rgba(0,0,0,0.7), 0 4px 12px rgba(0,0,0,0.4);
     border-color: #2a2a2a;
   }
+
+  /* Green bounce feedback when a barcode is scanned (scan page): bounces in, then held */
+  @keyframes scan-hit {
+    0%   { opacity: 0; transform: scale(1.04); }
+    40%  { opacity: 1; transform: scale(0.97); }
+    70%  { transform: scale(1.01); }
+    100% { opacity: 1; transform: scale(1); }
+  }
+  .animate-scan-hit {
+    animation: scan-hit 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    box-shadow: 0 0 24px rgba(52, 211, 153, 0.5), inset 0 0 24px rgba(52, 211, 153, 0.35);
+  }
 }

@@ -72,8 +72,8 @@ export default function LibraryPage() {
     setSelected(null)
   }
 
-  function handleAdd(book: Book) {
-    setBooks(bs => [book, ...bs])
+  function handleAdd(added: Book[]) {
+    setBooks(bs => [...added, ...bs])
     setShowAdd(false)
   }
 

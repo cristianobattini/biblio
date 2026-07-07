@@ -13,7 +13,7 @@ interface ReadingCardProps {
 export default function ReadingCard({ book, onUpdate, onClick }: ReadingCardProps) {
   const [saving, setSaving] = useState(false)
   const pct = book.page_count && book.current_page
-    ? Math.round((book.current_page / book.page_count) * 100)
+    ? Math.min(100, Math.round((book.current_page / book.page_count) * 100))
     : 0
 
   async function handlePageChange(e: React.ChangeEvent<HTMLInputElement>) {

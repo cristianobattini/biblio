@@ -23,7 +23,7 @@ export interface Book {
 export type BookInsert = Omit<Book, 'id' | 'user_id' | 'created_at' | 'updated_at'>
 export type BookUpdate = Partial<BookInsert>
 
-export interface OpenLibraryResult {
+export interface BookSearchResult {
   title: string
   author: string
   year?: number
@@ -33,3 +33,6 @@ export interface OpenLibraryResult {
   page_count?: number
   genre?: string
 }
+
+/** @deprecated use BookSearchResult */
+export type OpenLibraryResult = BookSearchResult
