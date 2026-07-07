@@ -31,8 +31,8 @@ export default function UnreadPage() {
     setSelected(null)
   }
 
-  function handleAdd(book: Book) {
-    setBooks(bs => [book, ...bs])
+  function handleAdd(added: Book[]) {
+    setBooks(bs => [...added.filter(b => b.status === 'unread'), ...bs])
     setShowAdd(false)
   }
 

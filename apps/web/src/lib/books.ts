@@ -34,6 +34,19 @@ export async function insertBook(book: BookInsert): Promise<Book> {
   return data as Book
 }
 
+export async function insertBooks(books: BookInsert[]): Promise<Book[]> {
+  if (books.length === 0) return []
+  const supabase = createClient()
+  const { data: { user } } = await supabase.auth.getUser()
+  const rows = books.map(b => ({ ...b, user_id: user!.id }))
+  const { data, error } = await supabase
+    .from('books')
+    .insert(rows)
+    .select()
+  if (error) throw error
+  return data as Book[]
+}
+
 export async function updateBook(id: string, updates: BookUpdate): Promise<Book> {
   const supabase = createClient()
   const { data, error } = await supabase

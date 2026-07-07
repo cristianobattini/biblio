@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Book, BookUpdate } from '@/types/book'
 import { updateBook, deleteBook } from '@/lib/books'
 import BookCover from './BookCover'
@@ -20,8 +20,15 @@ export default function BookDetail({ book, onClose, onUpdate, onDelete }: BookDe
   const [saving, setSaving] = useState(false)
   const [tagInput, setTagInput] = useState('')
 
+  // Re-focus the panel on a different book when the selection changes.
+  useEffect(() => {
+    setData(book)
+    setTagInput('')
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [book.id])
+
   const pct = data.page_count && data.current_page
-    ? Math.round((data.current_page / data.page_count) * 100)
+    ? Math.min(100, Math.round((data.current_page / data.page_count) * 100))
     : 0
 
   async function save(updates: BookUpdate) {
@@ -57,7 +64,7 @@ export default function BookDetail({ book, onClose, onUpdate, onDelete }: BookDe
   }
 
   return (
-    <div className="w-[300px] shrink-0 bg-bg-secondary border-l border-border flex flex-col h-screen sticky top-0 shadow-panel overflow-y-auto">
+    <div className="w-[560px] max-w-[95vw] shrink-0 bg-bg-secondary border-l border-border flex flex-col h-screen sticky top-0 shadow-panel overflow-y-auto">
       {/* Header */}
       <div className="flex items-center justify-between p-5 border-b border-border-subtle">
         <button onClick={handleDelete} className="text-text-dim hover:text-text-muted transition-colors">
@@ -121,7 +128,17 @@ export default function BookDetail({ book, onClose, onUpdate, onDelete }: BookDe
                 onBlur={() => save({ current_page: data.current_page })}
                 className="w-16 bg-bg-tertiary border border-border rounded-lg px-2 py-1.5 text-xs text-text-primary text-center focus:outline-none focus:border-border-strong"
               />
-              {data.page_count && <span className="text-xs text-text-muted">/ {data.page_count} pag.</span>}
+              <span className="text-xs text-text-dim">/</span>
+              <input
+                type="number"
+                value={data.page_count ?? ''}
+                min={0}
+                placeholder="tot"
+                onChange={e => setData(d => ({ ...d, page_count: parseInt(e.target.value) || undefined }))}
+                onBlur={() => save({ page_count: data.page_count })}
+                className="w-16 bg-bg-tertiary border border-border rounded-lg px-2 py-1.5 text-xs text-text-primary text-center placeholder:text-text-dim focus:outline-none focus:border-border-strong"
+              />
+              <span className="text-xs text-text-muted">pag.</span>
               <span className="ml-auto text-xs font-medium text-text-secondary">{pct}%</span>
             </div>
             <div className="h-1 bg-bg-hover rounded-full overflow-hidden">
